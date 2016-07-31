@@ -3,15 +3,16 @@ library(nlme)
 library(stats)
 
 ################GAMM model for distribution of variable with repeated measures over time by case-control status###################################
-#create complete datasets for all covariates used in model
+#Create complete datasets for all covariates used in model
 gamm.complete<-na.omit(aim2_long[,c("")])
 controls.complete<-na.omit(aim2_long.controls[,c("")])
 cases.complete<-na.omit(aim2_long.cases[,c("")])
 
+#Gamm model used with longitudinal models (random intercept and slope added)
 gamm1<-gamm(y~s(time, by=factor(case_control_variable)), random=list(id=~1+time), data=gamm.complete)#random intercept and slope to account for intra-individual correlation 
 summary(gamm1$gam) 
 
-###Predicted values
+###Extract predicted values
 predict.gamm1<-predict(gamm1$gam, type="terms", se.fit=T)
 predict.gamm1$fit[1:10,] #column 1 is controls, column 2 is cases
 
