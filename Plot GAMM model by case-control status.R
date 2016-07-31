@@ -2,7 +2,8 @@ library(mgcv)
 library(nlme)
 library(stats)
 
-################GAMM model for distribution of variable with repeated measures over time by case-control status###################################
+################GAMM model to describe trajectory of variable with repeated measures over time by case-control status###################################
+
 #Create complete datasets for all covariates used in model
 gamm.complete<-na.omit(aim2_long[,c("")])
 controls.complete<-na.omit(aim2_long.controls[,c("")])
